@@ -1,110 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Human Atlas | Explore Your Body</title>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h1>🌤️ Weather Dashboard</h1>
-            <p>Get real-time weather information</p>
-        </header>
 
-        <!-- Search Section -->
-        <div class="search-section">
-            <div class="search-box">
-                <input 
-                    type="text" 
-                    id="cityInput" 
-                    placeholder="Enter city name..." 
-                    class="city-input"
-                >
-                <button id="searchBtn" class="search-btn">Search</button>
-                <button id="locationBtn" class="location-btn" title="Use current location">📍</button>
-            </div>
-            <div id="errorMsg" class="error-message"></div>
-        </div>
-
-        <!-- Current Weather Section -->
-        <div id="weatherContainer" class="weather-container hidden">
-            <div class="current-weather">
-                <div class="weather-header">
-                    <h2 id="cityName">City Name</h2>
-                    <p id="date" class="date"></p>
-                </div>
-
-                <div class="weather-main">
-                    <div class="temp-section">
-                        <img id="weatherIcon" src="" alt="weather icon" class="weather-icon">
-                        <div class="temp-info">
-                            <span id="temperature" class="temperature">--°C</span>
-                            <span id="weatherDesc" class="description">--</span>
-                        </div>
-                    </div>
-
-                    <div class="weather-details">
-                        <div class="detail-item">
-                            <span class="label">Feels Like</span>
-                            <span id="feelsLike" class="value">--°C</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Humidity</span>
-                            <span id="humidity" class="value">--%</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Wind Speed</span>
-                            <span id="windSpeed" class="value">-- m/s</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Pressure</span>
-                            <span id="pressure" class="value">-- hPa</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">Visibility</span>
-                            <span id="visibility" class="value">-- km</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="label">UV Index</span>
-                            <span id="uvIndex" class="value">--</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 5-Day Forecast -->
-            <div class="forecast-section">
-                <h3>5-Day Forecast</h3>
-                <div id="forecastContainer" class="forecast-container">
-                    <!-- Forecast cards will be inserted here -->
-                </div>
-            </div>
-
-            <!-- Hourly Forecast -->
-            <div class="hourly-section">
-                <h3>Hourly Forecast</h3>
-                <div id="hourlyContainer" class="hourly-container">
-                    <!-- Hourly cards will be inserted here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Loading Spinner -->
-        <div id="loadingSpinner" class="loading-spinner hidden">
-            <div class="spinner"></div>
-            <p>Loading weather data...</p>
-        </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>Data provided by OpenWeatherMap API</p>
-            <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
-        </footer>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">◉</div>
+      <span>HUMAN <strong>ATLAS</strong></span>
     </div>
 
-    <script src="script.js"></script>
+    <div class="nav-links">
+      <a href="#explore">Explore</a>
+      <a href="#conditions">Conditions</a>
+      <a href="#systems">Body Systems</a>
+      <button class="nav-button">Start Exploring</button>
+    </div>
+  </nav>
+
+
+  <!-- Hero Section -->
+  <section class="hero" id="explore">
+
+    <div class="hero-text">
+
+      <div class="tag">
+        INTERACTIVE HUMAN HEALTH EXPLORER
+      </div>
+
+      <h1>
+        See What Happens
+        <span>Inside the Human Body.</span>
+      </h1>
+
+      <p>
+        Explore diseases, health conditions, injuries and lifestyle effects
+        through an interactive human body experience.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="primary-btn" id="exploreBtn">
+          Explore the Body →
+        </button>
+
+        <button class="secondary-btn" id="conditionBtn">
+          Browse Conditions
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- Human Model -->
+    <div class="body-container">
+
+      <div class="body-glow"></div>
+
+      <div class="human-body">
+
+        <div class="head organ" data-organ="Brain">
+          🧠
+        </div>
+
+        <div class="body-section chest">
+
+          <button class="organ lungs" data-organ="Lungs">
+            🫁
+          </button>
+
+          <button class="organ heart" data-organ="Heart">
+            ❤️
+          </button>
+
+        </div>
+
+        <div class="body-section abdomen">
+
+          <button class="organ liver" data-organ="Liver">
+            🟤
+          </button>
+
+          <button class="organ stomach" data-organ="Stomach">
+            🫃
+          </button>
+
+        </div>
+
+        <div class="body-legs">
+          <div class="leg"></div>
+          <div class="leg"></div>
+        </div>
+
+      </div>
+
+      <p class="body-label">
+        Click an organ to explore
+      </p>
+
+    </div>
+
+
+    <!-- Search Panel -->
+    <div class="search-panel">
+
+      <h2>Ask About the Human Body</h2>
+
+      <p>
+        Explore diseases, conditions and how they affect the body.
+      </p>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="healthSearch"
+          placeholder="How does diabetes affect the body?"
+        />
+
+        <button id="searchBtn">
+          →
+        </button>
+      </div>
+
+      <div class="suggestions">
+
+        <button class="suggestion">
+          Diabetes
+        </button>
+
+        <button class="suggestion">
+          Heart Attack
+        </button>
+
+        <button class="suggestion">
+          Asthma
+        </button>
+
+        <button class="suggestion">
+          Pneumonia
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Body Systems -->
+  <section class="systems-section" id="systems">
+
+    <div class="section-heading">
+
+      <span>EXPLORE</span>
+
+      <h2>The Human Body</h2>
+
+      <p>
+        Select a system to discover how the body works and what can affect it.
+      </p>
+
+    </div>
+
+
+    <div class="systems-grid">
+
+      <div class="system-card" data-system="Brain & Nervous System">
+        <div class="system-icon">🧠</div>
+        <h3>Brain & Nervous System</h3>
+        <p>Explore the brain, nerves and neurological conditions.</p>
+      </div>
+
+      <div class="system-card" data-system="Respiratory System">
+        <div class="system-icon">🫁</div>
+        <h3>Respiratory System</h3>
+        <p>Discover how breathing and the lungs work.</p>
+      </div>
+
+      <div class="system-card" data-system="Cardiovascular System">
+        <div class="system-icon">❤️</div>
+        <h3>Cardiovascular System</h3>
+        <p>Explore the heart, blood and blood vessels.</p>
+      </div>
+
+      <div class="system-card" data-system="Digestive System">
+        <div class="system-icon">🫃</div>
+        <h3>Digestive System</h3>
+        <p>Learn about digestion and abdominal organs.</p>
+      </div>
+
+      <div class="system-card" data-system="Musculoskeletal System">
+        <div class="system-icon">🦴</div>
+        <h3>Musculoskeletal System</h3>
+        <p>Explore bones, muscles and joints.</p>
+      </div>
+
+      <div class="system-card" data-system="Immune System">
+        <div class="system-icon">🛡️</div>
+        <h3>Immune System</h3>
+        <p>Understand how the body fights disease.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Conditions -->
+  <section class="conditions-section" id="conditions">
+
+    <div class="section-heading">
+
+      <span>CONDITIONS</span>
+
+      <h2>Explore Health Conditions</h2>
+
+      <p>
+        Learn how different conditions may affect different parts of the body.
+      </p>
+
+    </div>
+
+
+    <div class="conditions-grid">
+
+      <div class="condition-card" data-condition="Type 2 Diabetes">
+
+        <div class="condition-icon">🩸</div>
+
+        <h3>Type 2 Diabetes</h3>
+
+        <p>
+          Explore how long-term high blood glucose can affect multiple body systems.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+
+      <div class="condition-card" data-condition="Asthma">
+
+        <div class="condition-icon">🫁</div>
+
+        <h3>Asthma</h3>
+
+        <p>
+          Learn how inflammation and airway narrowing can affect breathing.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+
+      <div class="condition-card" data-condition="Heart Attack">
+
+        <div class="condition-icon">❤️</div>
+
+        <h3>Heart Attack</h3>
+
+        <p>
+          Explore how reduced blood flow can damage heart muscle.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+
+      <div class="condition-card" data-condition="Pneumonia">
+
+        <div class="condition-icon">🫁</div>
+
+        <h3>Pneumonia</h3>
+
+        <p>
+          See how infection can affect the lungs and breathing.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+
+      <div class="condition-card" data-condition="Stroke">
+
+        <div class="condition-icon">🧠</div>
+
+        <h3>Stroke</h3>
+
+        <p>
+          Learn how interrupted blood flow can affect the brain.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+
+      <div class="condition-card" data-condition="Bone Fracture">
+
+        <div class="condition-icon">🦴</div>
+
+        <h3>Bone Fracture</h3>
+
+        <p>
+          Explore bone injury and the general healing process.
+        </p>
+
+        <button>Explore →</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Information Modal -->
+  <div class="modal" id="infoModal">
+
+    <div class="modal-content">
+
+      <button class="close-modal" id="closeModal">
+        ×
+      </button>
+
+      <div id="modalIcon" class="modal-icon">
+        🧠
+      </div>
+
+      <h2 id="modalTitle">
+        Human Body
+      </h2>
+
+      <p id="modalDescription">
+        Select an organ or condition to learn more.
+      </p>
+
+      <div class="modal-info">
+
+        <h3>What happens?</h3>
+
+        <p id="modalDetails">
+          Educational information will appear here.
+        </p>
+
+      </div>
+
+      <div class="modal-disclaimer">
+
+        ⚠️ This information is for educational purposes only and is not
+        medical advice, diagnosis, or a prediction of an individual's health.
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Footer -->
+  <footer>
+
+    <div class="logo">
+      HUMAN <strong>ATLAS</strong>
+    </div>
+
+    <p>
+      Explore. Understand. Learn.
+    </p>
+
+    <small>
+      Human Atlas is an educational project and does not provide medical advice.
+    </small>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
 </body>
 </html>
