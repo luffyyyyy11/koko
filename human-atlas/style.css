@@ -1,12 +1,335 @@
-/* Human Atlas Styles */
+const modal = document.getElementById("infoModal");
+const closeModal = document.getElementById("closeModal");
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+const modalIcon = document.getElementById("modalIcon");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const modalDetails = document.getElementById("modalDetails");
+
+const organData = {
+  Brain: {
+    icon: "🧠",
+    description: "The brain controls thoughts, movement, memory, emotions and many essential body functions.",
+    details:
+      "The brain is part of the central nervous system and communicates with the rest of the body through a complex network of nerves."
+  },
+
+  Lungs: {
+    icon: "🫁",
+    description: "The lungs bring oxygen into the body and remove carbon dioxide.",
+    details:
+      "Air travels through the airways into tiny air sacs where oxygen moves into the bloodstream. Conditions such as asthma and pneumonia can interfere with breathing and gas exchange."
+  },
+
+  Heart: {
+    icon: "❤️",
+    description: "The heart pumps blood throughout the body.",
+    details:
+      "The cardiovascular system delivers oxygen and nutrients to tissues. A heart attack occurs when blood flow to part of the heart muscle becomes severely reduced or blocked."
+  },
+
+  Liver: {
+    icon: "🟤",
+    description: "The liver performs many essential functions including processing nutrients and substances in the blood.",
+    details:
+      "The liver plays an important role in metabolism and detoxification. Many conditions and lifestyle factors can affect liver health."
+  },
+
+  Stomach: {
+    icon: "🫃",
+    description: "The digestive system breaks down food and absorbs nutrients.",
+    details:
+      "The stomach uses acids and enzymes to help digest food before it moves through the rest of the digestive system."
+  }
+};
+
+
+const conditionData = {
+
+  "Type 2 Diabetes": {
+    icon: "🩸",
+    description:
+      "Type 2 diabetes is a chronic condition involving elevated blood glucose and changes in how the body responds to insulin.",
+    details:
+      "Over time, high blood glucose can affect blood vessels and may contribute to complications involving the heart, kidneys, eyes and nerves. The effects and progression vary between individuals."
+  },
+
+  Asthma: {
+    icon: "🫁",
+    description:
+      "Asthma is a condition involving inflammation and narrowing of the airways.",
+    details:
+      "During symptoms or attacks, airway muscles can tighten and inflammation may make breathing more difficult. Severity and triggers vary between individuals."
+  },
+
+  "Heart Attack": {
+    icon: "❤️",
+    description:
+      "A heart attack occurs when blood flow to part of the heart muscle is severely reduced or blocked.",
+    details:
+      "Without sufficient oxygen, heart muscle can become damaged. A heart attack is a medical emergency and requires immediate professional care."
+  },
+
+  Pneumonia: {
+    icon: "🫁",
+    description:
+      "Pneumonia is an infection that can cause inflammation in one or both lungs.",
+    details:
+      "The air sacs may become inflamed and can fill with fluid or other material, making breathing and oxygen exchange more difficult."
+  },
+
+  Stroke: {
+    icon: "🧠",
+    description:
+      "A stroke occurs when blood flow to part of the brain is interrupted or when bleeding occurs in or around the brain.",
+    details:
+      "Brain cells can become damaged when they do not receive enough oxygen. Effects depend on the area of the brain involved. Stroke symptoms require urgent medical attention."
+  },
+
+  "Bone Fracture": {
+    icon: "🦴",
+    description:
+      "A fracture is a break or crack in a bone.",
+    details:
+      "The body begins a healing process after a fracture, but treatment and recovery depend on the type, location and severity of the injury."
+  }
+};
+
+
+function openModal(data) {
+
+  modalIcon.textContent = data.icon;
+
+  modalTitle.textContent =
+    data.title || "Human Atlas";
+
+  modalDescription.textContent =
+    data.description;
+
+  modalDetails.textContent =
+    data.details;
+
+  modal.classList.add("active");
+
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+
+document.querySelectorAll(".organ").forEach(organ => {
+
+  organ.addEventListener("click", () => {
+
+    const name = organ.dataset.organ;
+
+    if (organData[name]) {
+
+      openModal({
+        title: name,
+        ...organData[name]
+      });
+
+    }
+
+  });
+
+});
+
+
+document.querySelectorAll(".condition-card").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    const condition =
+      card.dataset.condition;
+
+    if (conditionData[condition]) {
+
+      openModal({
+        title: condition,
+        ...conditionData[condition]
+      });
+
+    }
+
+  });
+
+});
+
+
+document.querySelectorAll(".system-card").forEach(card => {
+
+  card.addEventListener("click", () => {
+
+    const system =
+      card.dataset.system;
+
+    openModal({
+
+      title: system,
+
+      icon: "🔬",
+
+      description:
+        "Explore the organs and functions that make up the " + system + ".",
+
+      details:
+        "This section will eventually connect to a detailed interactive 3D body system where users can explore organs, diseases and health conditions."
+
+    });
+
+  });
+
+});
+
+
+function searchCondition() {
+
+  const input =
+    document
+      .getElementById("healthSearch")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  if (!input) {
+
+    alert("Please enter a health condition or question.");
+
+    return;
+
+  }
+
+
+  let foundCondition = null;
+
+
+  Object.keys(conditionData).forEach(condition => {
+
+    if (
+      input.includes(condition.toLowerCase())
+    ) {
+
+      foundCondition = condition;
+
+    }
+
+  });
+
+
+  if (foundCondition) {
+
+    openModal({
+
+      title: foundCondition,
+
+      ...conditionData[foundCondition]
+
+    });
+
+  }
+
+  else {
+
+    openModal({
+
+      title: "Search Result",
+
+      icon: "🔎",
+
+      description:
+        "We are building our medical knowledge library.",
+
+      details:
+        'We could not find a detailed visualization for "' +
+        input +
+        '" yet. Future versions of Human Atlas will support a much larger database of diseases, health conditions, injuries and lifestyle effects.'
+
+    });
+
+  }
+
 }
+
+
+document
+  .getElementById("searchBtn")
+  .addEventListener("click", searchCondition);
+
+
+document
+  .getElementById("healthSearch")
+  .addEventListener("keydown", event => {
+
+    if (event.key === "Enter") {
+
+      searchCondition();
+
+    }
+
+  });
+
+
+document
+  .querySelectorAll(".suggestion")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      document
+        .getElementById("healthSearch")
+        .value =
+        button.textContent.trim();
+
+      searchCondition();
+
+    });
+
+  });
+
+
+closeModal.addEventListener("click", () => {
+
+  modal.classList.remove("active");
+
+});
+
+
+modal.addEventListener("click", event => {
+
+  if (event.target === modal) {
+
+    modal.classList.remove("active");
+
+  }
+
+});
+
+
+document
+  .getElementById("exploreBtn")
+  .addEventListener("click", () => {
+
+    document
+      .getElementById("systems")
+      .scrollIntoView({
+
+        behavior: "smooth"
+
+      });
+
+  });
+
+
+document
+  .getElementById("conditionBtn")
+  .addEventListener("click", () => {
+
+    document
+      .getElementById("conditions")
+      .scrollIntoView({
+
+        behavior: "smooth"
+
+      });
+
+  });
